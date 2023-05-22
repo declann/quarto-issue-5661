@@ -1,0 +1,24 @@
+---
+title: "Quarto Issue 5661 demo"
+format:
+  html:
+    code-fold: true
+    resources:
+    - ./resources
+---
+
+```{ojs}
+umd = require('./resources/umd.js')
+
+umd
+```
+
+Note resources config.
+
+In `preview` mode a refresh event should be sent when `./resources/umd.js` is modified, but this doesn't work.
+
+Rename the file e.g. to `umd_.js` does result in a refresh even so does renaming it back.
+
+Actually, I notice that creating a new file in the resources folder also results in a refresh event, so perhaps resources folders and not specific files are being watched. There still seems to be a regression RE picking up file changes.
+
+I can require `umd.js` without putting it in a resources folder/config, however that results in no refresh events when I update/delete/rename it.
